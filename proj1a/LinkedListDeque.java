@@ -3,9 +3,9 @@ public class LinkedListDeque<T> {
 
     /** Node */
     private class Node {
-        public Node prev;
-        public T item;
-        public Node next;
+        Node prev;
+        T item;
+        Node next;
 
         public Node(Node p, T i, Node n) {
             prev = p;
@@ -110,7 +110,9 @@ public class LinkedListDeque<T> {
         int cnt = 0;
         while (q.next.next != null) {
             q = q.next;
-            if (cnt == idex) break;
+            if (cnt == idex) {
+                break;
+            }
             cnt += 1;
         }
 
@@ -118,7 +120,7 @@ public class LinkedListDeque<T> {
     }
 
     private T getRecursive(int cnt, int idex, Node n) {
-        if(cnt == idex) {
+        if (cnt == idex) {
             return n.item;
         }
 

@@ -26,7 +26,7 @@ public class ArrayDeque<T> {
     public void addFirst(T item) {
         size += 1;
         if (nextFirst == nextLast) {
-            resize(2*size);
+            resize(2 * size);
         }
 
         items[nextFirst --] = item;
@@ -50,7 +50,9 @@ public class ArrayDeque<T> {
 
     /** 判断items是否为空 */
     public boolean isEmpty() {
-        if (size == 0) return true;
+        if (size == 0) {
+            return true;
+        }
         return false;
     }
 
@@ -61,7 +63,7 @@ public class ArrayDeque<T> {
 
     /** 从前到后打印items的内容*/
     public void printDeque() {
-        for (int i = nextFirst+1; i != nextLast; i ++) {
+        for (int i = nextFirst + 1; i != nextLast; i ++) {
             if (i == items.length) {
                 i = 0;
             }
@@ -86,7 +88,9 @@ public class ArrayDeque<T> {
 
     /** 删除items的第一个item */
     public T removeFirst() {
-        if (size == 0) return null;
+        if (size == 0) {
+            return null;
+        }
         size --;
         nextFirst ++;
         if(nextFirst == items.length) nextFirst = 0;
@@ -96,17 +100,21 @@ public class ArrayDeque<T> {
 
     /** 删除items的最后一个item */
     public T removeLast() {
-        if (size == 0) return null;
+        if (size == 0) {
+            return null;
+        }
         size --;
         nextLast --;
-        if (nextLast == -1) nextLast = items.length-1;
+        if (nextLast == -1) nextLast = items.length - 1;
 
         return items[nextLast];
     }
 
     /** 返回第index个item */
     public T get(int index) {
-        if (size == 0) return null;
+        if (size == 0) {
+            return null;
+        }
         return items[(index + 1 + nextFirst) % items.length];
     }
 
