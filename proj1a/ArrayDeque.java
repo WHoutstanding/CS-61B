@@ -17,8 +17,8 @@ public class ArrayDeque<T> {
         T[] a = (T[]) new Object[capacity];
         System.arraycopy(items, 0, a, 0, nextFirst);
         System.arraycopy(items, nextFirst, a,
-                a.length - items.length+nextFirst, items.length - nextFirst);
-        nextFirst = a.length - items.length+nextFirst;
+                a.length - items.length + nextFirst, items.length - nextFirst);
+        nextFirst = a.length - items.length + nextFirst;
         items = a;
     }
 
@@ -29,7 +29,7 @@ public class ArrayDeque<T> {
             resize(2 * size);
         }
 
-        items[nextFirst --] = item;
+        items[nextFirst--] = item;
         if (nextFirst == -1) {
             nextFirst = items.length - 1;
         }
@@ -42,7 +42,7 @@ public class ArrayDeque<T> {
             resize(2 * size);
         }
 
-        items[nextLast ++] = item;
+        items[nextLast++] = item;
         if (nextLast == items.length) {
             nextLast = 0;
         }
@@ -63,7 +63,7 @@ public class ArrayDeque<T> {
 
     /** 从前到后打印items的内容*/
     public void printDeque() {
-        for (int i = nextFirst + 1; i != nextLast; i ++) {
+        for (int i = nextFirst + 1; i != nextLast; i++) {
             if (i == items.length) {
                 i = 0;
             }
@@ -91,9 +91,11 @@ public class ArrayDeque<T> {
         if (size == 0) {
             return null;
         }
-        size --;
-        nextFirst ++;
-        if(nextFirst == items.length) nextFirst = 0;
+        size--;
+        nextFirst++;
+        if (nextFirst == items.length) {
+            nextFirst = 0;
+        }
         return items[nextFirst];
 
     }
@@ -103,9 +105,11 @@ public class ArrayDeque<T> {
         if (size == 0) {
             return null;
         }
-        size --;
-        nextLast --;
-        if (nextLast == -1) nextLast = items.length - 1;
+        size--;
+        nextLast--;
+        if (nextLast == -1) {
+            nextLast = items.length - 1;
+        }
 
         return items[nextLast];
     }
