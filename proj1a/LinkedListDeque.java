@@ -49,7 +49,9 @@ public class LinkedListDeque<T> {
 
     /** Is or is not empty. */
     public boolean isEmpty() {
-        if (size == 0) return true;
+        if (size == 0) {
+            return true;
+        }
         return false;
     }
 
@@ -70,7 +72,9 @@ public class LinkedListDeque<T> {
     /** Remove the first node of the Deque and Reutrn its item
      * (if exists) else return null. */
     public T removeFirst() {
-        if (isEmpty()) return null;
+        if (isEmpty()) {
+            return null;
+        }
 
         size -= 1;
         T item = sentFront.next.item;
@@ -81,7 +85,9 @@ public class LinkedListDeque<T> {
     }
 
     public T removeLast() {
-        if (isEmpty()) return null;
+        if (isEmpty())  {
+            return null;
+        }
 
         size -= 1;
         T item = sentBack.prev.item;
@@ -92,9 +98,13 @@ public class LinkedListDeque<T> {
     }
 
     public T get(int idex) {
-        if (isEmpty()) return null;
+        if (isEmpty()) {
+            return null;
+        }
 
-        if (idex < 0 || idex >= size)  return null;
+        if (idex < 0 || idex >= size)  {
+            return null;
+        }
 
         Node q = sentFront;
         int cnt = 0;
@@ -108,16 +118,22 @@ public class LinkedListDeque<T> {
     }
 
     private T getRecursive(int cnt, int idex, Node n) {
-        if(cnt == idex) return n.item;
+        if(cnt == idex) {
+            return n.item;
+        }
 
         return getRecursive(cnt + 1, idex, n.next);
     }
 
 
     public T getRecursive(int idex) {
-        if (isEmpty()) return null;
+        if (isEmpty()) {
+            return null;
+        }
 
-        if (idex < 0 || idex >= size) return null;
+        if (idex < 0 || idex >= size) {
+            return null;
+        }
 
         return getRecursive(0, idex, sentFront.next);
     }

@@ -1,23 +1,24 @@
 public class ArrayDeque<T> {
-    T[] items;
-    int size;
-    int nextFirst;
-    int nextLast;
+    private T[] items;
+    private int size;
+    private int nextFirst;
+    private int nextLast;
 
     /** 初始化ArrayDeque */
     public ArrayDeque() {
         items = (T[]) new Object[8];
         size = 0;
-        nextFirst= 0;
+        nextFirst = 0;
         nextLast = 1;
     }
 
     /** 增大items的大小 */
     private void resize(int capacity) {
         T[] a = (T[]) new Object[capacity];
-        System.arraycopy(items, 0, a,0, nextFirst);
-        System.arraycopy(items, nextFirst, a, a.length-items.length+nextFirst ,items.length-nextFirst);
-        nextFirst = a.length-items.length+nextFirst;
+        System.arraycopy(items, 0, a, 0, nextFirst);
+        System.arraycopy(items, nextFirst, a,
+                a.length - items.length+nextFirst, items.length - nextFirst);
+        nextFirst = a.length - items.length+nextFirst;
         items = a;
     }
 
@@ -28,9 +29,9 @@ public class ArrayDeque<T> {
             resize(2*size);
         }
 
-        items[nextFirst--] = item;
-        if(nextFirst == -1) {
-            nextFirst = items.length-1;
+        items[nextFirst --] = item;
+        if (nextFirst == -1) {
+            nextFirst = items.length - 1;
         }
     }
 
@@ -38,11 +39,11 @@ public class ArrayDeque<T> {
     public void addLast(T item) {
         size += 1;
         if (nextLast == nextFirst) {
-            resize(2*size);
+            resize(2 * size);
         }
 
-        items[nextLast++] = item;
-        if(nextLast == items.length) {
+        items[nextLast ++] = item;
+        if (nextLast == items.length) {
             nextLast = 0;
         }
     }
@@ -60,7 +61,7 @@ public class ArrayDeque<T> {
 
     /** 从前到后打印items的内容*/
     public void printDeque() {
-        for (int i = nextFirst+1; i != nextLast; i++) {
+        for (int i = nextFirst+1; i != nextLast; i ++) {
             if (i == items.length) {
                 i = 0;
             }
@@ -96,7 +97,7 @@ public class ArrayDeque<T> {
     /** 删除items的最后一个item */
     public T removeLast() {
         if (size == 0) return null;
-        size--;
+        size --;
         nextLast --;
         if (nextLast == -1) nextLast = items.length-1;
 
@@ -106,7 +107,7 @@ public class ArrayDeque<T> {
     /** 返回第index个item */
     public T get(int index) {
         if (size == 0) return null;
-        return items[(index+1+nextFirst)%items.length];
+        return items[(index + 1 + nextFirst) % items.length];
     }
 
     /** 测试
