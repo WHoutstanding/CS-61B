@@ -93,8 +93,10 @@ public class ArrayDeque<T> {
 
     /** 判断items大小是否应该减小。 */
     private boolean checkSize() {
-        if (size * 1.0 / items.length < 0.25) {
-            return true;
+        if (items.length >= 16) {
+            if (size * 1.0 / items.length < 0.25) {
+                return true;
+            }
         }
         return false;
     }
