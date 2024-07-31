@@ -1,4 +1,5 @@
 import java.util.Formatter;
+import java.util.Vector;
 
 /**
  * A naked recursive list of integers, similar to what we saw in lecture 3, but
@@ -124,13 +125,20 @@ public class IntList {
             return null;
         }
 
-        IntList B = null;
-        while (A != null) {
-            B = new IntList(A.first, B);
-            A = A.rest;
+        Vector<Integer> v = new Vector<Integer>();
+        IntList p = A;
+        while (p != null) {
+            v.add(p.first);
+            p = p.rest;
         }
 
-        return B;
+        p = A;
+        for (int i = v.size() - 1; i >= 0; i--) {
+            p.first = v.get(i);
+            p = p.rest;
+        }
+
+        return A;
     }
 
 

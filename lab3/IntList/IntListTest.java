@@ -78,12 +78,11 @@ public class IntListTest {
         assertEquals(actual1, expected1);
 
         IntList input2 = IntList.of(1, 2, 3);
+        IntList temp = IntList.of(1, 2, 3);
         IntList expected2 = IntList.of(3, 2, 1);
         IntList actual2 = IntList.reverse(input2);
-        assertNotEquals(input2, actual2);
+        assertNotEquals(input2, temp);
         assertEquals(actual2, expected2);
-
-
     }
 
 }
