@@ -14,11 +14,24 @@ public class ArrayDeque<T> {
 
     /** 增大items的大小 */
     private void resize(int capacity) {
+//        T[] a = (T[]) new Object[capacity];
+//        System.arraycopy(items, 0, a, 0, nextFirst);
+//        System.arraycopy(items, nextFirst, a,
+//                a.length - items.length + nextFirst, items.length - nextFirst);
+//        nextFirst = a.length - items.length + nextFirst;
+//        items = a;
         T[] a = (T[]) new Object[capacity];
-        System.arraycopy(items, 0, a, 0, nextFirst);
-        System.arraycopy(items, nextFirst, a,
-                a.length - items.length + nextFirst, items.length - nextFirst);
-        nextFirst = a.length - items.length + nextFirst;
+        int index = 0;
+        for (int i = nextFirst + 1; i != nextLast; i++) {
+            if (i == items.length) {
+                i = 0;
+            }
+            a[index++] = items[i];
+        }
+
+        nextFirst = a.length - 1;
+        nextLast = index;
+
         items = a;
     }
 
@@ -71,10 +84,10 @@ public class ArrayDeque<T> {
         }
     }
 
-    /** print the length of items.
+    /** print the length of items.*/
     private void printItemsLength() {
         System.out.println(items.length);
-    }*/
+    }
 
     /** 打印items的所有内容
     public void printAll() {
@@ -102,6 +115,7 @@ public class ArrayDeque<T> {
     }
 
     /** 减小items。 */
+    /**
     private void resizeDecrease(int capacity) {
         T[] a = (T[]) new Object[capacity];
         int index = 0;
@@ -117,6 +131,7 @@ public class ArrayDeque<T> {
 
         items = a;
     }
+     */
 
     /** 删除items的第一个item */
     public T removeFirst() {
@@ -125,7 +140,7 @@ public class ArrayDeque<T> {
         }
         size--;
         if (checkSize()) {
-            resizeDecrease(items.length / 2);
+            resize(items.length / 2);
         }
         nextFirst++;
         if (nextFirst == items.length) {
@@ -141,7 +156,7 @@ public class ArrayDeque<T> {
         }
         size--;
         if (checkSize()) {
-            resizeDecrease(items.length / 2);
+            resize(items.length / 2);
         }
         nextLast--;
         if (nextLast == -1) {
@@ -159,7 +174,7 @@ public class ArrayDeque<T> {
         return items[(index + 1 + nextFirst) % items.length];
     }
 
-    /** 测试
+
     public static void main(String[] args) {
         ArrayDeque<Integer> L = new ArrayDeque<Integer>();
         L.addFirst(0);
@@ -169,7 +184,6 @@ public class ArrayDeque<T> {
         L.addFirst(4);
         L.addLast(5);
         L.addFirst(6);
-//        L.printItemsLength();
         L.addLast(7);
         L.addFirst(8);
         L.addLast(9);
@@ -197,5 +211,4 @@ public class ArrayDeque<T> {
         L.printItemsLength();
         L.printDeque();
     }
-     */
 }
