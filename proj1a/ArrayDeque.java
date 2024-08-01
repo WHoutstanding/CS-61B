@@ -175,6 +175,7 @@ public class ArrayDeque<T> {
     }
 
 
+    /**
     public static void main(String[] args) {
         ArrayDeque<Integer> L = new ArrayDeque<Integer>();
         L.addFirst(0);
@@ -211,4 +212,5 @@ public class ArrayDeque<T> {
         L.printItemsLength();
         L.printDeque();
     }
+     */
 }
