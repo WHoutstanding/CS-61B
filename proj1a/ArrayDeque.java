@@ -14,18 +14,14 @@ public class ArrayDeque<T> {
 
     /** 增大items的大小 */
     private void resize(int capacity) {
-//        T[] a = (T[]) new Object[capacity];
-//        System.arraycopy(items, 0, a, 0, nextFirst);
-//        System.arraycopy(items, nextFirst, a,
-//                a.length - items.length + nextFirst, items.length - nextFirst);
-//        nextFirst = a.length - items.length + nextFirst;
-//        items = a;
         T[] a = (T[]) new Object[capacity];
         int index = 0;
-        for (int i = nextFirst + 1; i != nextLast; i++) {
+        for (int i = nextFirst + 1; ;i++) {
             if (i == items.length) {
                 i = 0;
             }
+            if (i == nextLast) break;
+
             a[index++] = items[i];
         }
 
@@ -39,7 +35,7 @@ public class ArrayDeque<T> {
     public void addFirst(T item) {
         size += 1;
         if (nextFirst == nextLast) {
-            resize(2 * size);
+            resize(2 * items.length);
         }
 
         items[nextFirst--] = item;
@@ -52,7 +48,7 @@ public class ArrayDeque<T> {
     public void addLast(T item) {
         size += 1;
         if (nextLast == nextFirst) {
-            resize(2 * size);
+            resize(2 * items.length);
         }
 
         items[nextLast++] = item;
@@ -89,20 +85,6 @@ public class ArrayDeque<T> {
         System.out.println(items.length);
     }
 
-    /** 打印items的所有内容
-    public void printAll() {
-        for(int i = 0; i < items.length; i++) {
-            System.out.print(items[i] + " ");
-        }
-    }
-    */
-
-    /** 打印nextFirst和nextLast
-    public void printindex() {
-        System.out.print(nextFirst + " ");
-        System.out.print(nextLast + "\n");
-    }
-     */
 
     /** 判断items大小是否应该减小。 */
     private boolean checkSize() {
@@ -174,43 +156,12 @@ public class ArrayDeque<T> {
         return items[(index + 1 + nextFirst) % items.length];
     }
 
-
-    /**
-    public static void main(String[] args) {
+    /** Test
+     * public static void main(String[] args) {
         ArrayDeque<Integer> L = new ArrayDeque<Integer>();
-        L.addFirst(0);
-        L.addLast(1);
-        L.addFirst(2);
-        L.addLast(3);
-        L.addFirst(4);
-        L.addLast(5);
-        L.addFirst(6);
-        L.addLast(7);
-        L.addFirst(8);
-        L.addLast(9);
-        L.addFirst(10);
-        L.addLast(11);
-        L.addFirst(12);
-        L.addLast(13);
-        L.addFirst(14);
-        L.addLast(15);
-        L.removeFirst();
-        L.removeLast();
-        L.removeFirst();
-        L.removeLast();
-        L.removeFirst();
-        L.removeLast();
-        L.removeFirst();
-        L.removeLast();
-        L.removeFirst();
-        L.removeLast();
-        L.removeFirst();
-        L.removeLast();
-        L.printItemsLength();
-        L.removeFirst();
-//        L.printDeque();
-        L.printItemsLength();
+        for (int i = 0; i < 16; i++) {
+            L.addLast(i);
+        }
         L.printDeque();
-    }
-     */
+    }*/
 }
