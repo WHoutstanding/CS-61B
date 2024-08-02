@@ -16,12 +16,13 @@ public class ArrayDeque<T> {
     private void resize(int capacity) {
         T[] a = (T[]) new Object[capacity];
         int index = 0;
-        for (int i = nextFirst + 1; ;i++) {
+        for (int i = nextFirst + 1; ; i++) {
             if (i == items.length) {
                 i = 0;
             }
-            if (i == nextLast) break;
-
+            if (i == nextLast) {
+                break;
+            }
             a[index++] = items[i];
         }
 
@@ -96,24 +97,6 @@ public class ArrayDeque<T> {
         return false;
     }
 
-    /** 减小items。 */
-    /**
-    private void resizeDecrease(int capacity) {
-        T[] a = (T[]) new Object[capacity];
-        int index = 0;
-        for (int i = nextFirst + 1; i != nextLast; i++) {
-            if (i == items.length) {
-                i = 0;
-            }
-            a[index++] = items[i];
-        }
-
-        nextFirst = a.length - 1;
-        nextLast = index;
-
-        items = a;
-    }
-     */
 
     /** 删除items的第一个item */
     public T removeFirst() {
