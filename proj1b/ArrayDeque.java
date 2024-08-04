@@ -16,7 +16,7 @@ public class ArrayDeque<T> implements Deque<T> {
     private void resize(int capacity) {
         T[] a = (T[]) new Object[capacity];
         int index = 0;
-        for (int i = nextFirst + 1; ; i++) {
+        for (int i = nextFirst + 1;; i++) {
             if (i == items.length) {
                 i = 0;
             }

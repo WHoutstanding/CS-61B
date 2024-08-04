@@ -25,5 +25,15 @@ public class TestPalindrome {
         assertEquals(actual1, expected1);
     }
 
+    @Test
+    public void testIsPalindromeN() {
+        String input1 = "flake";
+        boolean expected1 = true;
+        CharacterComparator cc = new OffByN(1);
+        boolean actual1 = palindrome.isPalindrome(input1, cc);
+        assertEquals(actual1, expected1);
+    }
+
+
     /** Uncomment this class once you've created your Palindrome class. */
 }
