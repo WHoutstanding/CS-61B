@@ -23,6 +23,16 @@ public class TestPalindrome {
         CharacterComparator cc = new OffByOne();
         boolean actual1 = palindrome.isPalindrome(input1, cc);
         assertEquals(actual1, expected1);
+
+        String input2 = "a";
+        boolean expected2 = true;
+        boolean actual2 = palindrome.isPalindrome(input2, cc);
+        assertEquals(actual2, expected2);
+
+        String input3 = "";
+        boolean expected3 = true;
+        boolean actual3 = palindrome.isPalindrome(input3, cc);
+        assertEquals(actual3, expected3);
     }
 
     @Test
@@ -32,6 +42,16 @@ public class TestPalindrome {
         CharacterComparator cc = new OffByN(1);
         boolean actual1 = palindrome.isPalindrome(input1, cc);
         assertEquals(actual1, expected1);
+
+        String input2 = "a";
+        boolean expected2 = true;
+        boolean actual2 = palindrome.isPalindrome(input2, cc);
+        assertEquals(actual2, expected2);
+
+        String input3 = "";
+        boolean expected3 = true;
+        boolean actual3 = palindrome.isPalindrome(input3, cc);
+        assertEquals(actual3, expected3);
     }
 
 
