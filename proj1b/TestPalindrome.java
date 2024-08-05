@@ -33,6 +33,11 @@ public class TestPalindrome {
         boolean expected3 = true;
         boolean actual3 = palindrome.isPalindrome(input3, cc);
         assertEquals(actual3, expected3);
+
+        String input4 = "Flake";
+        boolean expected4 = false;
+        boolean actual4 = palindrome.isPalindrome(input4, cc);
+        assertEquals(actual4, expected4);
     }
 
     @Test
