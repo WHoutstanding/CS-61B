@@ -2,25 +2,55 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class TestArrayDequeGold {
-    /** Test the methods of class StudentArrayDequeLauncher. */
     @Test
     public void testStudentArrayDeque() {
-        StudentArrayDeque<Integer> input1 = new StudentArrayDeque<>();
-        ArrayDequeSolution<Integer> input2 = new ArrayDequeSolution<>();
-
-        int N = 16;
-        for (int i = 0; i < N; i += 1) {
-            input1.addLast(i);
-            input2.addLast(i);
-            if (i % 2 != 0) {
-                input1.removeFirst();
-                input2.removeFirst();
+        StudentArrayDeque<Integer> testArray = new StudentArrayDeque<>();
+        ArrayDequeSolution<Integer> stdArray = new ArrayDequeSolution<>();
+        String log = "";
+        for (int i = 0; i < 1000; i++) {
+            if (stdArray.size() == 0) {
+                int addNumber = StdRandom.uniform(1000);
+                int headOrBack = StdRandom.uniform(2);
+                if (headOrBack == 0) {
+                    log = log + "addFirst(" + addNumber + ")\n";
+                    testArray.addFirst(addNumber);
+                    stdArray.addFirst(addNumber);
+                } else {
+                    log = log + "addLast(" + addNumber + ")\n";
+                    testArray.addLast(addNumber);
+                    stdArray.addLast(addNumber);
+                }
+            } else {
+                int x = StdRandom.uniform(4);
+                int addNumber = StdRandom.uniform(1000);
+                Integer testremoveNumber = 1;
+                Integer stdremoveNumber = 1;
+                switch (x) {
+                    case 0:
+                        log = log + "addFirst(" + addNumber + ")\n";
+                        testArray.addFirst(addNumber);
+                        stdArray.addFirst(addNumber);
+                        break;
+                    case 1:
+                        log = log + "addLast(" + addNumber + ")\n";
+                        testArray.addLast(addNumber);
+                        stdArray.addLast(addNumber);
+                        break;
+                    case 2:
+                        log = log + "removeFirst()\n";
+                        testremoveNumber = testArray.removeFirst();
+                        stdremoveNumber = stdArray.removeFirst();
+                        break;
+                    case 3:
+                        log = log + "removeLast()\n";
+                        testremoveNumber = testArray.removeLast();
+                        stdremoveNumber = stdArray.removeLast();
+                        break;
+                    default:
+                }
+                assertEquals(log, stdremoveNumber, testremoveNumber);
             }
-            int actual = input1.get(0);
-            int expected = input2.get(0);
-            assertEquals("\naddLast(" + i + ")" + "\n"
-                    + "removeFirst(" + i + ")" + "\n"
-                    + "removeFirst()", expected, actual);
         }
+
     }
 }
