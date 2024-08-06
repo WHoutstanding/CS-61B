@@ -9,6 +9,7 @@ public class Palindrome {
     }
 
     public boolean isPalindrome(String word) {
+        if (word == null) return true;
         int len = word.length();
         for (int i = 0; i < len / 2; i++) {
             char a = word.charAt(i), b = word.charAt(len - 1 - i);
@@ -20,6 +21,7 @@ public class Palindrome {
     }
 
     public boolean isPalindrome(String word, CharacterComparator cc) {
+        if (word == null) return true;
         int len = word.length();
         for (int i = 0; i < len / 2; i++) {
             char a = word.charAt(i), b = word.charAt(len - 1 - i);

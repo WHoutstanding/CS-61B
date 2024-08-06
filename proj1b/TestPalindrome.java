@@ -19,24 +19,23 @@ public class TestPalindrome {
     @Test
     public void testIsPalindrome() {
         String input1 = "flake";
-        boolean expected1 = true;
-        CharacterComparator cc = new OffByOne();
-        boolean actual1 = palindrome.isPalindrome(input1, cc);
+        boolean expected1 = false;
+        boolean actual1 = palindrome.isPalindrome(input1);
         assertEquals(actual1, expected1);
 
         String input2 = "a";
         boolean expected2 = true;
-        boolean actual2 = palindrome.isPalindrome(input2, cc);
+        boolean actual2 = palindrome.isPalindrome(input2);
         assertEquals(actual2, expected2);
 
         String input3 = "";
         boolean expected3 = true;
-        boolean actual3 = palindrome.isPalindrome(input3, cc);
+        boolean actual3 = palindrome.isPalindrome(input3);
         assertEquals(actual3, expected3);
 
         String input4 = "Flake";
         boolean expected4 = false;
-        boolean actual4 = palindrome.isPalindrome(input4, cc);
+        boolean actual4 = palindrome.isPalindrome(input4);
         assertEquals(actual4, expected4);
     }
 
