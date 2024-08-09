@@ -10,7 +10,7 @@ public abstract class AbstractBoundedQueue<T> implements BoundedQueue<T> {
     }
 
     @Override
-    public int fillCount(){
+    public int fillCount() {
         return  fillCount;
     }
 
@@ -24,7 +24,12 @@ public abstract class AbstractBoundedQueue<T> implements BoundedQueue<T> {
         return fillCount() == capacity();
     }
 
+    @Override
     public abstract T peek();
+    @Override
     public abstract T dequeue();
+    @Override
     public abstract void enqueue(T x);
+
+
 }
