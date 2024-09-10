@@ -3,8 +3,8 @@ package hw2;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
-    boolean[][] st;
-    WeightedQuickUnionUF uf;
+    private boolean[][] st;
+    private WeightedQuickUnionUF uf;
 
     private int[] dx = new int[]{0, 1, 0, -1};
     private int[] dy = new int[]{-1, 0, 1, 0};
@@ -61,7 +61,7 @@ public class Percolation {
         int indexNumber = getNumber(row, col);
         for (int i = 0; i < size; i++) {
             int number = getNumber(0, i);
-            if (uf.connected(number, indexNumber)) {
+            if (number != indexNumber && uf.connected(number, indexNumber)) {
                 return true;
             }
         }
@@ -91,11 +91,11 @@ public class Percolation {
         return false;
     }
 
-    /** use for unit testing (not required).
+    /** use for unit testing (not required). */
     public static void main(String[] args) {
-        WeightedQuickUnionUF uf = new WeightedQuickUnionUF(10);
-        uf.union(0, 1);
-        uf.union(0, 9);
-        System.out.println(uf.connected(0, 9));
-    } */
+       Percolation pf = new Percolation(10);
+       System.out.println(pf.isFull(0, 0));
+       System.out.println(pf.percolates());
+
+    }
 }
