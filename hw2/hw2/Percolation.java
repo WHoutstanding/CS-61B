@@ -3,99 +3,109 @@ package hw2;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
-    private boolean[][] st;
-    private WeightedQuickUnionUF uf;
+    private int N;
+    private WeightedQuickUnionUF sites;
+    // sites without bottomSite
+    private WeightedQuickUnionUF sites2;
+    private int topSite;
+    private int bottomSite;
+    private boolean[][] flagOpen;
+    private int numOpen = 0;
 
-    private int[] dx = new int[]{0, 1, 0, -1};
-    private int[] dy = new int[]{-1, 0, 1, 0};
-    private int size;
-
-    /** Create N-by-N grid, with all sites initially blocked. */
+    // create N-by-N grid, with all sites initially blocked
     public Percolation(int N) {
-        if (N < 0) {
+        if (N <= 0) {
             throw new IllegalArgumentException();
         }
-        st = new boolean[N][N];
-        uf = new WeightedQuickUnionUF(N * N);
-        size = N;
+        this.N = N;
+        topSite = N * N;
+        bottomSite = N * N + 1;
+
+        sites = new WeightedQuickUnionUF(N * N + 2);
+        for (int i = 0; i < N; i++) {
+            sites.union(topSite, xyTo1D(0, i));
+        }
+        for (int i = 0; i < N; i++) {
+            sites.union(bottomSite, xyTo1D(N - 1, i));
+        }
+
+        sites2 = new WeightedQuickUnionUF(N * N + 1);
+        for (int i = 0; i < N; i++) {
+            sites2.union(topSite, xyTo1D(0, i));
+        }
+
+        flagOpen = new boolean[N][N];
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                flagOpen[i][j] = false;
+            }
+        }
     }
 
-    /** Returns the number of index. */
-    private int getNumber(int r, int c) {
-        return r * size + c;
+    // open the site (row, col) if it is not open already
+    public void open(int row, int col) {
+        validateRange(row, col);
+        if (flagOpen[row][col]) {
+            return;
+        }
+        flagOpen[row][col] = true;
+        numOpen++;
+        unionOpenNeighbor(row, col, row + 1, col);
+        unionOpenNeighbor(row, col, row - 1, col);
+        unionOpenNeighbor(row, col, row, col + 1);
+        unionOpenNeighbor(row, col, row, col - 1);
     }
 
-    /** Check. */
-    private boolean check(int r, int c) {
-        if (r < 0 || r >= size || c < 0 || c >= size) {
+    // is the site (row, col) open?
+    public boolean isOpen(int row, int col) {
+        validateRange(row, col);
+        return flagOpen[row][col];
+    }
+
+    // is the site (row, col) full?
+    public boolean isFull(int row, int col) {
+        validateRange(row, col);
+
+        if (!isOpen(row, col)) {
+            return false;
+        }
+        return sites2.connected(xyTo1D(row, col), topSite);
+    }
+
+    // number of open sites
+    public int numberOfOpenSites() {
+        return numOpen;
+    }
+
+    // does the system percolate?
+    public boolean percolates() {
+        if (numOpen == 0) {
+            return false;
+        }
+        return sites.connected(topSite, bottomSite);
+    }
+
+    private int xyTo1D(int row, int col) {
+        return row * N + col;
+    }
+
+    private void validateRange(int row, int col) {
+        if (row < 0 || row >= N || col < 0 || col >= N) {
             throw new IndexOutOfBoundsException();
         }
-        return true;
     }
 
-    /** Open the site (row, col) if it is not open already. */
-    public void open(int row, int col) {
-        check(row, col);
-
-        st[row][col] = true;
-        int number = getNumber(row, col);
-        for (int i = 0; i < 4; i++) {
-            int r = row + dx[i], c = col + dy[i];
-            if (r >= 0 && r < size && c >= 0 && c < size) {
-                int subNumber = getNumber(r, c);
-                uf.union(number, subNumber);
-            }
+    private void unionOpenNeighbor(int row, int col, int newRow, int newCol) {
+        if (newRow < 0 || newRow >= N || newCol < 0 || newCol >= N) {
+            return;
+        }
+        if (flagOpen[newRow][newCol]) {
+            sites.union(xyTo1D(row, col), xyTo1D(newRow, newCol));
+            sites2.union(xyTo1D(row, col), xyTo1D(newRow, newCol));
         }
     }
 
-    /** Is the site (row, col) open? */
-    public boolean isOpen(int row, int col) {
-        check(row, col);
-        return st[row][col];
-    }
-
-    /** Is the site (row, col) full? */
-    public boolean isFull(int row, int col) {
-        check(row, col);
-
-        int indexNumber = getNumber(row, col);
-        for (int i = 0; i < size; i++) {
-            int number = getNumber(0, i);
-            if (number != indexNumber && uf.connected(number, indexNumber)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /** number of open sites. */
-    public int numberOfOpenSites() {
-        int number = 0;
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                if (st[i][j]) {
-                    number++;
-                }
-            }
-        }
-        return number;
-    }
-
-    /** does the system percolate? */
-    public boolean percolates() {
-        for (int j = 0; j < size; j++) {
-            if (isFull(size - 1, j)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /** use for unit testing (not required). */
+    // use for unit testing (not required)
     public static void main(String[] args) {
-       Percolation pf = new Percolation(10);
-       System.out.println(pf.isFull(0, 0));
-       System.out.println(pf.percolates());
-
     }
 }
